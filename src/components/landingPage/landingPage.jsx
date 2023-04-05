@@ -17,7 +17,7 @@ const LandingPage = () => {
     //   convertedWeight = (weight*0.453592).toFixed(2);
     // }
     axios
-      .post("http://localhost:8081/postData", { weight, unit })
+      .post("https://lime-gosling-tux.cyclic.app/postData", { weight, unit })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
 

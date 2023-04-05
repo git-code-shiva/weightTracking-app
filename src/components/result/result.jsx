@@ -2,14 +2,18 @@ import axios from "axios";
 import './result.css';
 import React, { useEffect, useState } from "react";
 import Header from "../header/header";
+import Loader from "../loader/loader";
+
 
 const Result=()=>{
 
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
-        axios.get('http://localhost:8081/getWeight').then((response)=>{
+        axios.get('https://lime-gosling-tux.cyclic.app/getWeight').then((response)=>{
             setData(response.data.reverse());
+            setLoading(false);
         })
     },[])
     // const db_date = data.createdAt.split("-");
@@ -75,6 +79,9 @@ const Result=()=>{
         <>
             <Header/>
             <h2>Weight Data</h2>
+            {loading?(
+              <Loader type="ThreeDots" color="#000000" height={100} timeout={3000} />
+            ):(
             <table>
                 <thead>
                     <tr>
@@ -89,11 +96,13 @@ const Result=()=>{
                         <tr key={index}>
                             <td>{new Date(item.createdAt).toLocaleDateString('en-GB')}</td>
                             <td className={getWeightStatus(item.weight,item.unit)}>{item.weight}{" "}{item.unit}</td>
-                            <td>60-70</td>
+                            {item.unit==="kg"?<td>60-70</td>:<td>100-127</td>}
+                            
                         </tr>
                     ))}
                 </tbody>
             </table>
+            )}
         </>
     )
 }
