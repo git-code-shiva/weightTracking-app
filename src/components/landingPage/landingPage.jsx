@@ -9,14 +9,14 @@ const LandingPage = () => {
   const [unit, setUnit] = useState("kg");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // alert(`Weight: ${weight} ${unit}`);
     // let convertedWeight = weight;
     // if(unit ==="lb"){
     //   convertedWeight = (weight*0.453592).toFixed(2);
     // }
-    axios
+    await axios
       .post("https://lime-gosling-tux.cyclic.app/postData", { weight, unit })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
